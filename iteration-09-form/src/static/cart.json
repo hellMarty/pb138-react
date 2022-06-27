@@ -1,0 +1,22 @@
+{
+  "products": [
+    {
+      "name": "Dark chocolate",
+      "price": 1.7,
+      "image": "../public/chocolate.png",
+      "quantity": 3
+    },
+    {
+      "name": "Bread",
+      "price": 2.1,
+      "image": "../public/bread.png",
+      "quantity": 1
+    },
+    {
+      "name": "Orange juice",
+      "price": 1.4,
+      "image": "../public/orange_juice.png",
+      "quantity": 4
+    }
+  ]
+}

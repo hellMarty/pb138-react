@@ -1,0 +1,52 @@
+.main {
+    display: flex;
+    flex-direction: column;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    padding-top: 0.5rem;
+    align-items: center;
+}
+
+.label {
+    display: flex;
+    flex-direction: column;
+    padding-top: 0.5rem;
+    width: 20rem;
+}
+
+.label--long {
+    display: flex;
+    flex-direction: column;
+    padding-top: 0.5rem;
+    padding-right: 0.3rem;
+    width: 15rem;
+}
+
+.label--short {
+    display: flex;
+    flex-direction: column;
+    padding-top: 0.5rem;
+    padding-right: 0.3rem;
+    width: 5rem;
+}
+
+.label--line {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+}
+
+.note {
+    padding-bottom: 2rem;
+}
+
+.invalid {
+    border: 1px red solid;
+}
+
+.invalid-message {
+    color: red;
+}

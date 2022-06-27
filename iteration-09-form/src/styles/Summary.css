@@ -1,0 +1,30 @@
+.main {
+    display: flex;
+    flex-direction: column;
+}
+
+.summary_item {
+    display: flex;
+    justify-content: space-between;
+    width: 40rem;
+    border: 1px black solid;
+    margin: 0.7rem;
+    padding: 0 1rem;
+}
+
+.summary_item--basis {
+    flex-basis: 10rem;
+}
+
+.deliver_data {
+    display: flex;
+    flex-direction: column;
+    width: 40rem;
+    margin-top: 1rem;
+}
+
+.deliver_data--item {
+    display: flex;
+    justify-content: space-between;
+    margin: 1rem 0rem;
+}
