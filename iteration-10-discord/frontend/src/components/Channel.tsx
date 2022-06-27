@@ -10,11 +10,12 @@ import { Message, IMessageProps } from "./Message";
 export default function Channel() {
     let { id } = useParams();
 
-    const { data, error } = useSWR('http://127.0.0.1:4000/channel/' + id, fetcher)
+    const { data, error } = useSWR(`${import.meta.env.VITE_APP}channel/${id}`, fetcher)
 
     if (error) return <div>failed to load</div>
     if (!data) return <div>loading...</div>
-    console.log(data);
+
+    const channel = data.data;
 
     return (
         <>
@@ -35,7 +36,7 @@ export default function Channel() {
                             alt="hashtag"
                             className="chat-start__icon image"    
                         />
-                        { data.data.name } channel
+                        { channel.name } channel
                     </h2>
                 </div>
                 {data.data.messages.map((message: IMessageProps, index: string) => <Message key={index} {...message} />)}

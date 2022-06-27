@@ -5,7 +5,7 @@ import { userId } from "../store/user";
 
 
 export default function Profile() {
-    const {data, error } = useSWR('http://127.0.0.1:4000/user/' + userId, fetcher)
+    const {data, error } = useSWR(`${import.meta.env.VITE_APP}user/${userId}`, fetcher)
     
     if (error) return <div>failed to load </div>
     if (!data) return <div>loading...</div>

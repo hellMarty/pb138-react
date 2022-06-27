@@ -4,7 +4,7 @@ import { userId } from '../store/user';
 import useSWR from 'swr';
 import fetcher from '../models/fetcher';
 
-type SenderProps = {
+interface SenderProps {
     name: string,
     picture: string
 }
@@ -16,34 +16,19 @@ export interface IMessageProps {
     sender: SenderProps,
 }
 
-function deleteMessage(messageId: string) {
-    fetch('http://127.0.0.1:4000/message/' + messageId, {
-        method: 'DELETE',
-        headers: {
-            'X-User': '331dcda5-84d0-4f9c-9e49-6ee481ad45f1'
-        },
-    })
-    .then(response => response.json())
-    .then(data => {
-        console.log('Succes:', data);
-    })
-    .catch((error) => {
-        console.error('Error', error);
-    })
-}
-
-export const Message = (message: IMessageProps) => {
+export function Message (message: IMessageProps) {
     const [edited, setEdited] = useState(false);
     const [showEdit, setShowEdit] = useState(false);
     const [editMessage, setEditMessage] = useState("");
 
-    const {data, error } = useSWR('http://127.0.0.1:4000/user/' + userId, fetcher)
+    const {data, error } = useSWR(`${import.meta.env.VITE_APP}user/${userId}`, fetcher)
     
     if (error) return <div>failed to load </div>
     if (!data) return <div>loading...</div>
 
-    function handleSubmit() {
-        fetch('http://127.0.0.1:4000/message/' + message.id, {
+    async function handleSubmit(e) {
+        e.preventDefault();
+        await fetch(`${import.meta.env.VITE_APP}message/${message.id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -54,6 +39,15 @@ export const Message = (message: IMessageProps) => {
             }),
         });
         setEdited(true);
+    }
+
+    async function deleteMessage(messageId: string) {
+        await fetch(`${import.meta.env.VITE_APP}message/${messageId}`, {
+            method: 'DELETE',
+            headers: {
+                'X-User': userId
+            },
+        });
     }
 
     return (
@@ -93,7 +87,7 @@ export const Message = (message: IMessageProps) => {
             }
             {showEdit && 
                 <div className="message-edit">
-                    <form onSubmit={handleSubmit} className="message-edit__form">
+                    <form onSubmit={(e) => handleSubmit(e)} className="message-edit__form">
                         <input
                             type="text"
                             placeholder="Add the content of the message to the input here"

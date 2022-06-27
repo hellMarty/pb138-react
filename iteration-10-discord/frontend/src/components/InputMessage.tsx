@@ -1,31 +1,25 @@
 import React, { useState } from "react"
 import { useParams } from "react-router-dom";
+import { userId } from "../store/user";
 
 export default function InputMessage() {
     const { id } = useParams();
 
     const [ message, setMessage ] = useState("");
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        fetch('http://127.0.0.1:4000/message', {
+        await fetch(`${import.meta.env.VITE_APP}message`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'X-User': '331dcda5-84d0-4f9c-9e49-6ee481ad45f1'
-            },
+                'X-User': userId
+            },  
             body: JSON.stringify( {
                 'channelId': id,
                 'content': message
             }),
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log('Succes:', data);
-        })
-        .catch((error) => {
-            console.error('Error', error);
-        })
+        });
         setMessage("");
     }
 
@@ -34,8 +28,6 @@ export default function InputMessage() {
             <form onSubmit={handleSubmit} className="chat-input__form">
                 <input 
                     type="text"
-                    name=""
-                    id=""
                     placeholder="Write message"
                     value={message}
                     className="chat-input__text-input"

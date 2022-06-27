@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, Outlet } from "react-router-dom";
+import { Link, NavLink, Outlet } from "react-router-dom";
 
 export default function EditPage() {
     return (
@@ -9,11 +9,11 @@ export default function EditPage() {
                     <div className="navigation__setting-category category">
                         <h2 className="category__heading heading heading--2">User setting</h2>
                         <ul className="list category__items items">
-                            <Link to="/edit-page/my-account">
-                                <li className="setting category__item category__item--selected item">
+                            <NavLink to="/edit-page/my-account">
+                                <li className="setting category__item item">
                                     <span className="item__name">My Account</span>
                                 </li>
-                            </Link>
+                            </NavLink>
                             <Link to="/edit-page/empty">
                                 <li className="setting category__item item">
                                     <span className="item__name">User Profile</span>

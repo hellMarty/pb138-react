@@ -8,9 +8,9 @@ export default function MyAccountPage() {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        fetch('http://127.0.0.1:4000/user', {
+        await fetch(`${import.meta.env.VITE_APP}user`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -20,19 +20,12 @@ export default function MyAccountPage() {
                 'name': name,
                 'email': email,
             }),
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log('Succes:', data);
-        })
-        .catch((error) => {
-            console.error('Error', error);
-        })
+        });
         setName("");
         setEmail("");
     }
 
-    const {data, error } = useSWR('http://127.0.0.1:4000/user/' + userId, fetcher)
+    const {data, error } = useSWR(`${import.meta.env.VITE_APP}user/${userId}`, fetcher)
     
     if (error) return <div>failed to load </div>
     if (!data) return <div>loading...</div>
