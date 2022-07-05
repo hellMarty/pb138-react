@@ -43,7 +43,6 @@ export const Library = () => {
         return s;
       })
     )
-    console.log(songs);
   };
 
   const updateFilter = () => {

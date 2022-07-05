@@ -44,9 +44,7 @@ export const Player = () => {
       setSeconds(seconds => seconds + 1 );
     }, 1000);
     setIntervalId(newIntervalId);
-    console.log(currentSong);
   }
-
 
   const myTimer = () => {
     if (seconds === currentSong.length) {
@@ -55,7 +53,6 @@ export const Player = () => {
     }
     return (<>{humanizeSongLength(seconds)}/{humanizeSongLength(currentSong.length)}</>)
   }
-
   
   return (
     <Row className="mt-5 d-flex justify-content-between border align-items-center" style={{flexGrow: 1}}>
