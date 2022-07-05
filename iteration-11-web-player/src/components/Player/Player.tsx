@@ -5,13 +5,16 @@ import {NextSong} from './NextSong';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { firstInQueueSelector } from '../../state/selectors';
 import { songListAtom } from '../../state/atom';
-import { useEffect } from 'react';
+import { useState } from 'react';
 
 // Do not worry about actual playback, just make skipping to next song work
 export const Player = () => {
   // Todo take the actual song from Recoil
   const currentSong: Song | undefined = useRecoilValue(firstInQueueSelector);
   const setSongList = useSetRecoilState(songListAtom);
+  const [seconds, setSeconds] = useState(0);
+  const [playing, setPlaying] = useState(false)
+  const [intervalId, setIntervalId] = useState(0);
 
   if (!currentSong) {
     return <Row className="mt-5 border align-items-center"><Col>Empty Queue</Col></Row>;
@@ -26,8 +29,34 @@ export const Player = () => {
         return s;
       })
     )
+    setSeconds(0);
   };
 
+  const playClicked = () => {
+    setPlaying(!playing);
+    if (intervalId) {
+      clearInterval(intervalId);
+      setIntervalId(0);
+      return;
+    }
+
+    const newIntervalId = setInterval(() => {
+      setSeconds(seconds => seconds + 1 );
+    }, 1000);
+    setIntervalId(newIntervalId);
+    console.log(currentSong);
+  }
+
+
+  const myTimer = () => {
+    if (seconds === 5) {
+      playClicked();
+      setSeconds(0);
+    }
+    return (<>{humanizeSongLength(seconds)}/{humanizeSongLength(currentSong.length)}</>)
+  }
+
+  
   return (
     <Row className="mt-5 d-flex justify-content-between border align-items-center" style={{flexGrow: 1}}>
       <Col>
@@ -44,14 +73,14 @@ export const Player = () => {
             <span className="small">{currentSong.author}</span>
           </Col>
           <Col>
-            <span className="small">00:00/{humanizeSongLength(currentSong.length)}</span>
+            <span className="small">{myTimer()}</span>
           </Col>
         </Row>
       </Col>
       <Col>
         <Row>
           <Col className="m-2">
-            <Button variant="success">Play</Button>
+            <Button variant="success" onClick={playClicked}>{playing ? "Pause" : "Play"}</Button>
           </Col>
         </Row>
         <Row>

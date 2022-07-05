@@ -12,7 +12,7 @@ export const Queue = () => {
     setSongList((songs: Song[]) => 
       songs.map((s) => {
         if (s.author === author && s.name === name) {
-          return {...s, inQueue: !s.inQueue};
+          return {...s, inQueue: !s.inQueue, playing: false};
         }
         return s;
       })

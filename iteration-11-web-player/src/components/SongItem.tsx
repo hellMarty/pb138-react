@@ -12,9 +12,8 @@ export type SongProps = Song & {
   onAction: (author: string, name: string, updateList: SetterOrUpdater<Song[]>) => void;
 };
 
-export const SongItem = ({name, author, coverURL, length, actionButtonName, onAction}: SongProps) => {
+export const SongItem = ({name, author, coverURL, length, playing, actionButtonName, onAction}: SongProps) => {
   const setSongList = useSetRecoilState(songListAtom);
-  console.log(author, name, coverURL);
   
   return (
     <Row className="border d-flex align-items-center p-1">
@@ -30,10 +29,13 @@ export const SongItem = ({name, author, coverURL, length, actionButtonName, onAc
       <Col md="2">
         <span>{humanizeSongLength(length)}</span>
       </Col>
-      <Col md="3">
+      <Col md="2">
         <Button variant="outline-primary" onClick={() => onAction(author, name, setSongList)}>
           {actionButtonName}
         </Button>
+      </Col>
+      <Col md="1">
+        Playing: {playing ? "true" : "false"}
       </Col>
     </Row>
   );

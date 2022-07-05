@@ -31,19 +31,19 @@ export const Library = () => {
     .then(response => response.json())
     .then(data => {
       setSongList(data);
-      console.log(data);
     })
   }, [])
 
   const onSongClicked = (author: string, name: string, setSongList: SetterOrUpdater<Song[]>) => {
     setSongList((songs: Song[]) =>
-        songs.map((s) => {
-          if (s.author === author && s.name === name && !s.inQueue) {
-            return {...s, inQueue: !s.inQueue};
-          }
-          return s;
-        })
+      songs.map((s) => {
+        if (s.author === author && s.name === name && !s.inQueue) {
+          return {...s, inQueue: !s.inQueue, playing: false};
+        }
+        return s;
+      })
     )
+    console.log(songs);
   };
 
   const updateFilter = () => {

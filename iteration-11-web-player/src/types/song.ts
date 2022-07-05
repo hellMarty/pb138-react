@@ -6,4 +6,5 @@ export interface Song {
   length: number;
   inQueue: boolean;
   played: boolean;
+  playing: boolean;
 }
