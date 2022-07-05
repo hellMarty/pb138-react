@@ -49,7 +49,7 @@ export const Player = () => {
 
 
   const myTimer = () => {
-    if (seconds === 5) {
+    if (seconds === currentSong.length) {
       playClicked();
       setSeconds(0);
     }
